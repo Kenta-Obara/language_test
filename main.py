@@ -36,7 +36,7 @@ def close_window():
 root = tk.Tk()
 root.title("New English Test")
 root.configure(bg="skyblue")
-root.geometry("700x500")
+root.geometry("1000x500")
 
 # メインフレームの作成と設置
 frame = ttk.Frame(root)
@@ -49,9 +49,9 @@ year_list = list(df.columns)
 # ウィジェットの作成
 guide_label = tk.Label(master=frame, text="期間を選択してください",fg="black")
 combobox = ttk.Combobox(master=frame, values=year_list, width=8, justify="center",state="readonly")
-text_widget = tk.Text(master=frame, height=7, bg="white", fg="black")
+text_widget = tk.Text(master=frame, height=3, bg="white", fg="black", font=("","17",""))
 text_widget.config(wrap="word")
-quit_button = tk.Button(master=frame, text = "終了",command = close_window, bg='#F0F8FF', fg='#FF4500')
+quit_button = tk.Button(master=frame, text = "終了",command = close_window, bg='#F0F8FF', fg='#FF4500', font=("","13","bold"))
 change_button = tk.Button(master=frame, text="NEXT", fg="black",justify="center", command=change_sentence)
 
 # 各種ウィジェットの設置
@@ -61,17 +61,6 @@ text_widget.grid(row=2, column=0)
 change_button.grid(row=3,column=0)
 quit_button.grid(row=4, column=0)
 
-# def callbackFunc(event):
-#   print("New Element Selected")
-#   print(combobox.current())
-#   print(combobox.get())
-
-# combobox.current(1)
-# combobox.bind("<<ComboboxSelected>>", callbackFunc)
 
 root.mainloop()
 
-# def callbackFunc(event):
-#   print("New Element Selected")
-#   print(combobox.current())
-#   print(combobox.get())
