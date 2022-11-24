@@ -3,7 +3,6 @@ from tkinter import ttk
 from tkinter import messagebox
 import numpy as np
 import pandas as pd
-import random
 
 # ---------------データの読み込み--------------------------------
 df = pd.read_csv("english.csv")
@@ -35,26 +34,6 @@ def change_sentence():
   except:
     print("例外です")
     root.destroy()
-# --------------文章を更新（旧）---------------  
-
-# def change_sentence():
-#   text_widget.delete('1.0','end')
-#   topic = combobox.get().capitalize()
-#   current_word = random.choice(df_dic)
-
-#   try:
-#     df_dic.remove(current_word)
-
-#   except IndexError:
-#     tk.messagebox.showinfo(title="DONE", message="全て終了です！")
-#   except KeyError:
-#     tk.messagebox.showinfo(title="DONE", message="そのトピックはありません")
-#   finally:
-#     current_sentence = current_word[topic]
-#     if current_sentence is np.nan:
-#       change_sentence()
-#     else:
-#       text_widget.insert('1.0', current_sentence)
 
 # --------------ウィンドウを閉じるfunction
 
@@ -89,8 +68,6 @@ combobox.grid(row=1, column=0)
 text_widget.grid(row=2, column=0)
 change_button.grid(row=3,column=0)
 quit_button.grid(row=4, column=0)
-
-# print(list(df["2020-4"].dropna()))
 
 combobox.bind("<<ComboboxSelected>>", callbackFunc)
 
