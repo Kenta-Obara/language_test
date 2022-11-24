@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import messagebox
 import numpy as np
 import pandas as pd
 import random
@@ -8,24 +9,52 @@ import random
 df = pd.read_csv("english.csv")
 df_dic = df.to_dict(orient="records")
 
-# --------------文章を更新---------------
+# コンボボックス選択次に単語リスト作成
 
+my_list = []
+
+def callbackFunc(event):
+  period = combobox.get().capitalize()
+  word_list = list(df[period].dropna())
+  for word in word_list:
+    my_list.append(word)
+
+# --------------文章を更新（新）---------------  
 def change_sentence():
-  text_widget.delete('1.0','end')
-  topic = combobox.get().capitalize()
+  text_widget.delete('1.0', 'end')
   try:
-    current_word = random.choice(df_dic)
-    df_dic.remove(current_word)
+    current_sentence = my_list[0]
+    text_widget.insert('1.0', current_sentence)
+    my_list.pop(0)
   except IndexError:
-    tk.messagebox.showinfo(title="DONE", message="全て終了です！")
+    messagebox.showinfo(title="Done", message="全て終了です！")
+    root.destroy()
   except KeyError:
-    tk.messagebox.showinfo(title="DONE", message="そのトピックはありません")
-  finally:
-    current_sentence = current_word[topic]
-    if current_sentence is np.nan:
-      change_sentence()
-    else:
-      text_widget.insert('1.0', current_sentence)
+    messagebox.showinfo(title="Done", message="そのトピックはありません")
+    root.destroy()
+  except:
+    print("例外です")
+    root.destroy()
+# --------------文章を更新（旧）---------------  
+
+# def change_sentence():
+#   text_widget.delete('1.0','end')
+#   topic = combobox.get().capitalize()
+#   current_word = random.choice(df_dic)
+
+#   try:
+#     df_dic.remove(current_word)
+
+#   except IndexError:
+#     tk.messagebox.showinfo(title="DONE", message="全て終了です！")
+#   except KeyError:
+#     tk.messagebox.showinfo(title="DONE", message="そのトピックはありません")
+#   finally:
+#     current_sentence = current_word[topic]
+#     if current_sentence is np.nan:
+#       change_sentence()
+#     else:
+#       text_widget.insert('1.0', current_sentence)
 
 # --------------ウィンドウを閉じるfunction
 
@@ -61,6 +90,9 @@ text_widget.grid(row=2, column=0)
 change_button.grid(row=3,column=0)
 quit_button.grid(row=4, column=0)
 
+# print(list(df["2020-4"].dropna()))
+
+combobox.bind("<<ComboboxSelected>>", callbackFunc)
 
 root.mainloop()
 
