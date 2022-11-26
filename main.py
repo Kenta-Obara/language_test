@@ -1,8 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
-import numpy as np
 import pandas as pd
+import random
 
 # ---------------データの読み込み--------------------------------
 df = pd.read_csv("english.csv")
@@ -17,6 +17,7 @@ def callbackFunc(event):
   word_list = list(df[period].dropna())
   for word in word_list:
     my_list.append(word)
+  random.shuffle(my_list)
 
 # --------------文章を更新（新）---------------  
 def change_sentence():
